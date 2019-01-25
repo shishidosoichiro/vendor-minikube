@@ -1,0 +1,41 @@
+#!/usr/bin/env sh
+
+# Exit, if return non-zero or use an undefined variable.
+set -eu
+
+cd "$(dirname "$0")/.."
+
+# Variables
+VERSION=${1:-0.33.1}
+
+os=$(./bin/os)
+distro=$(./bin/distro)
+
+if [ $os = win ]; then
+	ARCHIVE_BASE=minikube-windows-amd64
+elif [ $os = mac ]; then
+	ARCHIVE_BASE=minikube-darwin-amd64
+else
+	ARCHIVE_BASE=minikube-linux-amd64
+fi
+
+DOWNLOAD_URL=https://github.com/kubernetes/minikube/releases/download/v$VERSION/$ARCHIVE_BASE
+
+# Clean
+clean() {
+	rm -rf temp
+}
+
+# Start
+clean
+filename=$(./bin/download $DOWNLOAD_URL)
+
+rm -rf "versions/$VERSION"
+mkdir -p "versions/$VERSION"
+if [ $os = win ]; then
+	mv "$filename" "versions/$VERSION/minikube.exe"
+elif [ $os = mac ]; then
+	mv "$filename" "versions/$VERSION/minikube"
+else
+	mv "$filename" "versions/$VERSION/minikube"
+fi

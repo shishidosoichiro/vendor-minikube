@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Exit, if return non-zero or use an undefined variable.
+set -eu
+
+cd "$(dirname "$0")/.."
+
+# Variables
+VERSION=${1:-1.11.5}
+
+# If set path already, delete it.
+if echo "$PATH" | grep -q "$PWD"; then
+  PATH=`echo "$PATH" | sed -e "s|$PWD[^:]*:||g"`
+fi
+
+# Path
+bin="$(./bin/bin $VERSION)"
+echo "export PATH=\"$bin:\$PATH\""
