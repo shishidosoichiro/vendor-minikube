@@ -11,9 +11,9 @@ VERSION=${1:-0.33.1}
 os=$(./bin/os)
 distro=$(./bin/distro)
 
-if [ $os = win ]; then
+if [ $os = windows ]; then
 	ARCHIVE_BASE=minikube-windows-amd64
-elif [ $os = mac ]; then
+elif [ $os = darwin ]; then
 	ARCHIVE_BASE=minikube-darwin-amd64
 else
 	ARCHIVE_BASE=minikube-linux-amd64
@@ -32,9 +32,9 @@ filename=$(./bin/download $DOWNLOAD_URL)
 
 rm -rf "versions/$VERSION"
 mkdir -p "versions/$VERSION"
-if [ $os = win ]; then
+if [ $os = windows ]; then
 	mv "$filename" "versions/$VERSION/minikube.exe"
-elif [ $os = mac ]; then
+elif [ $os = darwin ]; then
 	mv "$filename" "versions/$VERSION/minikube"
 else
 	mv "$filename" "versions/$VERSION/minikube"

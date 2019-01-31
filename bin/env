@@ -6,7 +6,7 @@ set -eu
 cd "$(dirname "$0")/.."
 
 # Variables
-VERSION=${1:-1.11.5}
+VERSION=${1:-0.33.1}
 
 # If set path already, delete it.
 if echo "$PATH" | grep -q "$PWD"; then
