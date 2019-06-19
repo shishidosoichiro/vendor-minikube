@@ -19,7 +19,7 @@ else
 	ARCHIVE_BASE=minikube-linux-amd64
 fi
 
-DOWNLOAD_URL=https://github.com/kubernetes/minikube/releases/download/v$VERSION/$ARCHIVE_BASE
+DOWNLOAD_URL=https://storage.googleapis.com/minikube/releases/v$VERSION/$ARCHIVE_BASE
 
 # Clean
 clean() {
@@ -31,11 +31,11 @@ clean
 filename=$(./bin/download $DOWNLOAD_URL)
 
 rm -rf "versions/$VERSION"
-mkdir -p "versions/$VERSION"
+mkdir -p "versions/$VERSION/bin"
 if [ $os = windows ]; then
-	mv "$filename" "versions/$VERSION/minikube.exe"
+	mv "$filename" "versions/$VERSION/bin/minikube.exe"
 elif [ $os = darwin ]; then
-	mv "$filename" "versions/$VERSION/minikube"
+	mv "$filename" "versions/$VERSION/bin/minikube"
 else
-	mv "$filename" "versions/$VERSION/minikube"
+	mv "$filename" "versions/$VERSION/bin/minikube"
 fi
